@@ -1,0 +1,132 @@
+{
+ "book": "K139",
+ "title": "工作者的AI共智模式（Co-Intelligence）",
+ "type": "prompt-drill",
+ "coach_window": "K139 教練",
+ "practice_window": "K139 練習-全書",
+ "practice_dir": "practice",
+ "screen": "HP1 螢幕 3（直式 1080x1920，上＝教練、下＝練習）",
+ "chapters": [
+  {
+   "ch": "00",
+   "name": "中文版前言與引言：洞察 AI 的瓶頸與躍進模式／理解新現實",
+   "prompt_file": "prompts/ch00.md",
+   "exercises": [
+    "練習 1：用「談判老師」提示詞開一場情境演練",
+    "練習 2：探測 AI 的「鋸齒狀前緣」",
+    "練習 3：找出瓶頸，而不是只看能力"
+   ],
+   "output_dir": "practice/ch00"
+  },
+  {
+   "ch": "01",
+   "name": "轉換思考：從工具到夥伴，重新定義人機協作",
+   "prompt_file": "prompts/ch01.md",
+   "exercises": [
+    "練習 1：同一段文字，三種角色評論",
+    "練習 2：LLM 的隨機性與「預測下一個 token」",
+    "練習 3：AI 的強項與盲點，自己測一遍"
+   ],
+   "output_dir": "practice/ch01"
+  },
+  {
+   "ch": "02",
+   "name": "管理風險：對齊問題與安全漏洞",
+   "prompt_file": "prompts/ch02.md",
+   "exercises": [
+    "練習 1：迴紋針式目標的推演與護欄設計",
+    "練習 2：測試偏見——改一個詞，答案是否不同",
+    "練習 3：辨識提示注入與角色扮演式越獄（防守方）"
+   ],
+   "output_dir": "practice/ch02"
+  },
+  {
+   "ch": "03",
+   "name": "高效協作：應用AI的四個底層邏輯",
+   "prompt_file": "prompts/ch03.md",
+   "exercises": [
+    "練習 1：用實驗找出 AI 的鋸齒狀前緣",
+    "練習 2：留在人機迴圈裡，看 AI 為了讓你開心會編什麼",
+    "練習 3：指定角色與脈絡，前後對照",
+    "練習 4：假設現在的 AI 是最爛的版本"
+   ],
+   "output_dir": "practice/ch03"
+  },
+  {
+   "ch": "04",
+   "name": "掌握邊界：AI的強項與弱點",
+   "prompt_file": "prompts/ch04.md",
+   "exercises": [
+    "練習 1：AI 的「解釋」是真實過程，還是事後編的？",
+    "練習 2：用角色讓 AI 扮演不同的人（賽局與消費者訪談）",
+    "練習 3：開場框架會改變 AI 的態度，也會讓它顯得「有感情」"
+   ],
+   "output_dir": "practice/ch04"
+  },
+  {
+   "ch": "05",
+   "name": "創意自動化：突破思考慣性",
+   "prompt_file": "prompts/ch05.md",
+   "exercises": [
+    "練習 1：幻覺實驗——從隨機數與引用看 AI 的「記憶」",
+    "練習 2：用角色與高變異提示詞，逼出不平庸的點子",
+    "練習 3：當連結機器——把不相干的概念組合起來"
+   ],
+   "output_dir": "practice/ch05"
+  },
+  {
+   "ch": "06",
+   "name": "第二專長：領域專業 × AI專業＝最強競爭力",
+   "prompt_file": "prompts/ch06.md",
+   "exercises": [
+    "練習 1：畫出你工作的「鋸齒狀前緣」",
+    "練習 2：半人馬 vs 半機器人寫作",
+    "練習 3：別在方向盤前睡著——找出 AI 的陷阱"
+   ],
+   "output_dir": "practice/ch06"
+  },
+  {
+   "ch": "07",
+   "name": "自學革命：運用AI實現個人化成長",
+   "prompt_file": "prompts/ch07.md",
+   "exercises": [
+    "練習 1：用「一步一步思考」改良一個類比",
+    "練習 2：把 AI 當成個人化家教",
+    "練習 3：設計一份「規定要用 AI」的作業"
+   ],
+   "output_dir": "practice/ch07"
+  },
+  {
+   "ch": "08",
+   "name": "巔峰表現：透過AI教練啟動刻意練習",
+   "prompt_file": "prompts/ch08.md",
+   "exercises": [
+    "練習 1：蘇菲與娜歐蜜——重複 vs 刻意練習",
+    "練習 2：AI 當即時教練——拉吉的設計回饋",
+    "練習 3：推銷模擬器——三個 AI 角色接力"
+   ],
+   "output_dir": "practice/ch08"
+  },
+  {
+   "ch": "09",
+   "name": "未來藍圖：預見AI演進的四種應變路徑",
+   "prompt_file": "prompts/ch09.md",
+   "exercises": [
+    "練習 1：四種情境下的同一份工作",
+    "練習 2：為不確定性排優先順序",
+    "練習 3：假資訊與小型災難的防線"
+   ],
+   "output_dir": "practice/ch09"
+  },
+  {
+   "ch": "10",
+   "name": "後記與中文版後記：持續與 AI 共事、共創、共存",
+   "prompt_file": "prompts/ch10.md",
+   "exercises": [
+    "練習 1：全書總複習：為我的工作擬一份 AI 協作行動計畫",
+    "練習 2：從聊天機器人到數位同事：委派一個小專案"
+   ],
+   "output_dir": "practice/ch10"
+  }
+ ]
+}
