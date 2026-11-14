@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>井字遊戲</title>
+<style>
+  body { font-family: "Microsoft JhengHei", sans-serif; background: #fff; color: #111;
+         display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
+  h1 { font-size: 1.5rem; margin: 0 0 8px; }
+  p.hint { color: #555; margin: 0 0 16px; }
+  #board { display: grid; grid-template-columns: repeat(3, 90px); gap: 6px; }
+  .cell { width: 90px; height: 90px; font-size: 2.6rem; border: 1px solid #999;
+          background: #fff; cursor: pointer; }
+  .cell:disabled { cursor: default; color: #111; }
+  .cell.win { background: #e8e8e8; }
+  #status { margin: 16px 0; font-size: 1.2rem; min-height: 1.5em; }
+  button#reset { padding: 8px 20px; font-size: 1rem; border: 1px solid #111; background: #fff; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>井字遊戲</h1>
+<p class="hint">電腦（X）先走，你是 O。點空格下棋。</p>
+<div id="board" role="grid" aria-label="井字遊戲盤面"></div>
+<div id="status" aria-live="polite"></div>
+<button id="reset">重新開始</button>
+
+<script>
+// ---- 純邏輯（不碰 DOM，方便用 node 測試）----
+const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+const AI = "X", HUMAN = "O";
+
+/** 回傳 { winner, line }；沒人贏回傳 null */
+function findWinner(board) {
+  for (const line of LINES) {
+    const [a, b, c] = line;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) return { winner: board[a], line };
+  }
+  return null;
+}
+
+function isFull(board) { return board.every(v => v !== null); }
+
+/** minimax：分數加入深度，讓電腦優先選「最快贏、最慢輸」的走法 */
+function minimax(board, turn, depth) {
+  const result = findWinner(board);
+  if (result) return result.winner === AI ? 10 - depth : depth - 10;
+  if (isFull(board)) return 0;
+  let best = turn === AI ? -Infinity : Infinity;
+  for (let i = 0; i < 9; i++) {
+    if (board[i] !== null) continue;
+    board[i] = turn;
+    const score = minimax(board, turn === AI ? HUMAN : AI, depth + 1);
+    board[i] = null;
+    best = turn === AI ? Math.max(best, score) : Math.min(best, score);
+  }
+  return best;
+}
+
+/** 電腦選最佳格；空盤直接下角落，省去整棵樹計算 */
+function bestMove(board) {
+  if (board.every(v => v === null)) return 0;
+  let bestScore = -Infinity, move = -1;
+  for (let i = 0; i < 9; i++) {
+    if (board[i] !== null) continue;
+    board[i] = AI;
+    const score = minimax(board, HUMAN, 1);
+    board[i] = null;
+    if (score > bestScore) { bestScore = score; move = i; }
+  }
+  return move;
+}
+
+// ---- 畫面 ----
+function initGame() {
+  const boardEl = document.getElementById("board");
+  const statusEl = document.getElementById("status");
+  let board, gameOver;
+
+  function render() {
+    boardEl.innerHTML = "";
+    board.forEach((v, i) => {
+      const btn = document.createElement("button");
+      btn.className = "cell";
+      btn.textContent = v ?? "";
+      btn.setAttribute("aria-label", `第 ${Math.floor(i / 3) + 1} 排第 ${i % 3 + 1} 格 ${v ?? "空"}`);
+      btn.disabled = gameOver || v !== null;
+      btn.addEventListener("click", () => humanMove(i));
+      boardEl.appendChild(btn);
+    });
+  }
+
+  function checkEnd() {
+    const result = findWinner(board);
+    if (result) {
+      gameOver = true;
+      render();
+      result.line.forEach(i => boardEl.children[i].classList.add("win"));
+      statusEl.textContent = result.winner === AI ? "電腦獲勝！" : "你贏了！";
+      return true;
+    }
+    if (isFull(board)) {
+      gameOver = true;
+      statusEl.textContent = "平手！";
+      render();
+      return true;
+    }
+    return false;
+  }
+
+  function aiMove() {
+    const move = bestMove(board);
+    if (move < 0) { statusEl.textContent = "錯誤：電腦找不到可下的格子"; return; }
+    board[move] = AI;
+    if (!checkEnd()) { statusEl.textContent = "輪到你（O）"; render(); }
+  }
+
+  function humanMove(i) {
+    if (gameOver || board[i] !== null) return;
+    board[i] = HUMAN;
+    if (checkEnd()) return;
+    aiMove();
+  }
+
+  function reset() {
+    board = Array(9).fill(null);
+    gameOver = false;
+    aiMove();
+  }
+
+  document.getElementById("reset").addEventListener("click", reset);
+  try { reset(); } catch (err) { statusEl.textContent = "遊戲初始化失敗：" + err.message; }
+}
+
+if (typeof document !== "undefined") initGame();
+if (typeof module !== "undefined") module.exports = { findWinner, isFull, bestMove, AI, HUMAN };
+</script>
+</body>
+</html>
